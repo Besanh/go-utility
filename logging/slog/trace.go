@@ -7,11 +7,13 @@ import (
 	"log/slog"
 )
 
+// TraceLogger is a logger that supports trace with opentelemetry trace
 type TraceLogger struct {
 	l      *slog.Logger
 	config *config
 }
 
+// NewTraceLogger new trace logger
 func NewTraceLogger(opts ...Option) *TraceLogger {
 	config := defaultConfig()
 	for _, opt := range opts {
