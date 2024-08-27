@@ -47,6 +47,11 @@ func (l *TraceLogger) Logf(level Level, format string, kvs ...interface{}) {
 	logger.Log(context.TODO(), tranSLevel(level), msg)
 }
 
+func (l *TraceLogger) LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{}) {
+	logger := l.l.With(args...)
+	logger.Log(ctx, tranSLevel(level), msg)
+}
+
 func (l *TraceLogger) LogCtxf(level Level, ctx context.Context, format string, kvs ...interface{}) {
 	logger := l.l.With()
 	msg := getMessage(format, kvs)
@@ -123,7 +128,7 @@ func (l *TraceLogger) SetLevel(level Level) {
 }
 
 func (l *TraceLogger) SetOutput(writer io.Writer) {
-	log := slog.New(NewDefaultHandler(writer, l.config.coreConfig.opt))
+	log := slog.New(NewDefaultHandler(writer, l.config.coreConfig.formatter, l.config.coreConfig.opt))
 	l.config.coreConfig.writer = writer
 	l.l = log
 }

@@ -24,7 +24,7 @@ func NewDefaultLogger(opts ...Option) *DefaultLogger {
 		config.coreConfig.level = lvl
 	}
 	config.coreConfig.opt.Level = config.coreConfig.level
-	logger := slog.New(NewDefaultHandler(config.coreConfig.writer, config.coreConfig.opt))
+	logger := slog.New(NewDefaultHandler(config.coreConfig.writer, config.coreConfig.formatter, config.coreConfig.opt))
 	return &DefaultLogger{
 		l:      logger,
 		config: config,
@@ -45,6 +45,11 @@ func (l *DefaultLogger) Logf(level Level, format string, kvs ...interface{}) {
 func (l *DefaultLogger) LogCtxf(level Level, ctx context.Context, format string, kvs ...interface{}) {
 	logger := l.l.With()
 	msg := getMessage(format, kvs)
+	logger.Log(ctx, tranSLevel(level), msg)
+}
+
+func (l *DefaultLogger) LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{}) {
+	logger := l.l.With(args...)
 	logger.Log(ctx, tranSLevel(level), msg)
 }
 
@@ -118,7 +123,7 @@ func (l *DefaultLogger) SetLevel(level Level) {
 }
 
 func (l *DefaultLogger) SetOutput(writer io.Writer) {
-	log := slog.New(NewDefaultHandler(writer, l.config.coreConfig.opt))
+	log := slog.New(NewDefaultHandler(writer, l.config.coreConfig.formatter, l.config.coreConfig.opt))
 	l.config.coreConfig.writer = writer
 	l.l = log
 }

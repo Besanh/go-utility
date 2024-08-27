@@ -1,6 +1,7 @@
 package slog
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 )
@@ -23,7 +24,7 @@ func getMessage(template string, fmtArgs []interface{}) string {
 	return fmt.Sprint(fmtArgs...)
 }
 
-// Adapt klog level to slog level
+// Adapt level to slog level
 func tranSLevel(level Level) (lvl slog.Level) {
 	switch level {
 	case LEVEL_DEBUG:
@@ -38,4 +39,12 @@ func tranSLevel(level Level) (lvl slog.Level) {
 		lvl = slog.LevelDebug
 	}
 	return
+}
+
+type ContextKey string
+
+const keyTraceId = ContextKey("trace_id")
+
+func WithTraceId(ctx context.Context, traceId string) context.Context {
+	return context.WithValue(ctx, keyTraceId, traceId)
 }

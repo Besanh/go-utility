@@ -1,6 +1,8 @@
 package slog
 
-import "context"
+import (
+	"context"
+)
 
 type (
 	ILogger interface {
@@ -31,11 +33,16 @@ type (
 		DebugfContext(ctx context.Context, msg string, args ...any)
 	}
 
+	ICustomLogger interface {
+		LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{})
+	}
+
 	IFullLogger interface {
 		ILogger
 		IFormatLogger
 		IContextLogger
 		IContextFormatLogger
+		ICustomLogger
 	}
 )
 

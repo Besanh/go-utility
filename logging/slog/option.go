@@ -9,12 +9,14 @@ import (
 )
 
 type (
-	Level slog.Level
+	Level     slog.Level
+	Formatter string
 
 	coreConfig struct {
 		opt                *slog.HandlerOptions
 		writer             io.Writer
 		level              *slog.LevelVar
+		formatter          Formatter
 		withLevel          bool
 		withHandlerOptions bool
 	}
@@ -32,6 +34,9 @@ const (
 	LEVEL_ERROR Level = 8
 	LEVEL_FATAL Level = 12
 	LEVEL_TRACE Level = 16
+
+	FORMAT_JSON Formatter = "json"
+	FORMAT_TEXT Formatter = "text"
 )
 
 // Option slog option
@@ -69,6 +74,7 @@ func defaultCoreConfig() *coreConfig {
 		level:              level,
 		withLevel:          false,
 		withHandlerOptions: false,
+		formatter:          FORMAT_JSON,
 	}
 }
 
@@ -118,5 +124,14 @@ func WithRotateFile(f string) Option {
 	w := io.MultiWriter(os.Stdout, rotateWriter)
 	return option(func(cfg *config) {
 		cfg.coreConfig.writer = w
+	})
+}
+
+// WithFormatter formatter
+// default json.
+// Enum: json or text
+func WithFormatter(formatter Formatter) Option {
+	return option(func(cfg *config) {
+		cfg.coreConfig.formatter = formatter
 	})
 }

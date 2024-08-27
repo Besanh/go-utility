@@ -2,7 +2,6 @@ package slog
 
 import (
 	"context"
-	"fmt"
 )
 
 var logger IFullLogger = NewDefaultLogger()
@@ -21,96 +20,84 @@ func GetLogger() IFullLogger {
 
 // Info calls the default logger's Info method.
 func Info(args ...any) {
-	logger.
-		Info(fmt.Sprint(args...))
+	logger.Info(args...)
 }
 
 // Warn calls the default logger's Warn method.
 func Warn(args ...any) {
-	logger.
-		Warn(fmt.Sprint(args...))
+	logger.Warn(args...)
 }
 
 // Error calls the default logger's Error method.
 func Error(args ...any) {
-	logger.
-		Error(fmt.Sprint(args...))
+	logger.Error(args...)
 }
 
 // Debug calls the default logger's Debug method.
 func Debug(args ...any) {
-	logger.
-		Debug(fmt.Sprint(args...))
+	logger.Debug(args...)
 }
 
 // Infof calls the default logger's Infof method.
 func Infof(msg string, args ...any) {
-	logger.
-		Info(fmt.Sprintf(msg, args...))
+	logger.Infof(msg, args...)
 }
 
 // Warnf calls the default logger's Warnf method.
 func Warnf(msg string, args ...any) {
-	logger.
-		Warn(fmt.Sprintf(msg, args...))
+	logger.Warnf(msg, args...)
 }
 
 // Errorf calls the default logger's Errorf method.
 func Errorf(msg string, args ...any) {
-	logger.
-		Error(fmt.Sprintf(msg, args...))
+	logger.Errorf(msg, args...)
 }
 
 // Debugf calls the default logger's Debugf method.
 func Debugf(msg string, args ...any) {
-	logger.
-		Debug(fmt.Sprintf(msg, args...))
+	logger.Debugf(msg, args...)
 }
 
 // InfoContext calls the default logger's InfoContext method.
 func InfoContext(ctx context.Context, args ...any) {
-	logger.
-		InfoContext(ctx, fmt.Sprint(args...))
+	logger.InfoContext(ctx, args...)
 }
 
 // WarnContext calls the default logger's WarnContext method.
 func WarnContext(ctx context.Context, args ...any) {
-	logger.
-		WarnContext(ctx, fmt.Sprint(args...))
+	logger.WarnContext(ctx, args...)
 }
 
 // ErrorContext calls the default logger's ErrorContext method.
 func ErrorContext(ctx context.Context, args ...any) {
-	logger.
-		ErrorContext(ctx, fmt.Sprint(args...))
+	logger.ErrorContext(ctx, args...)
 }
 
 // DebugContext calls the default logger's DebugContext method.
 func DebugContext(ctx context.Context, args ...any) {
-	logger.
-		DebugContext(ctx, fmt.Sprint(args...))
+	logger.DebugContext(ctx, args...)
 }
 
 // InfofContext calls the default logger's InfofContext method.
 func InfofContext(ctx context.Context, msg string, args ...any) {
-	logger.
-		InfoContext(ctx, fmt.Sprintf(msg, args...))
+	logger.InfofContext(ctx, msg, args...)
 }
 
 // WarnfContext calls the default logger's WarnfContext method.
 func WarnfContext(ctx context.Context, msg string, args ...any) {
-	logger.
-		WarnContext(ctx, fmt.Sprintf(msg, args...))
+	logger.WarnfContext(ctx, msg, args...)
 }
 
 // ErrorfContext calls the default logger's ErrorfContext method.
 func ErrorfContext(ctx context.Context, msg string, args ...any) {
-	logger.
-		ErrorContext(ctx, fmt.Sprintf(msg, args...))
+	logger.ErrorfContext(ctx, msg, args...)
 }
 
 // DebugfContext calls the default logger's DebugfContext method.
 func DebugfContext(ctx context.Context, msg string, args ...any) {
-	logger.
-		DebugContext(ctx, fmt.Sprintf(msg, args...))
+	logger.DebugfContext(ctx, msg, args...)
+}
+
+func LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{}) {
+	logger.LogWithArgs(level, ctx, msg, args...)
 }
