@@ -88,9 +88,9 @@ func WithOutput(iow io.Writer) Option {
 }
 
 // WithLevel slog level
-func WithLevel(lvl *slog.LevelVar) Option {
+func WithLevel(level Level) Option {
 	return option(func(cfg *config) {
-		cfg.coreConfig.level = lvl
+		cfg.coreConfig.level.Set(tranSLevel(level))
 		cfg.coreConfig.withLevel = true
 	})
 }
