@@ -9,7 +9,7 @@ import (
 )
 
 type (
-	Level int
+	Level slog.Level
 
 	coreConfig struct {
 		opt                *slog.HandlerOptions
@@ -26,10 +26,12 @@ type (
 )
 
 const (
-	LEVEL_DEBUG int = iota
-	LEVEL_INFO
-	LEVEL_WARN
-	LEVEL_ERROR
+	LEVEL_DEBUG Level = -4
+	LEVEL_INFO  Level = 0
+	LEVEL_WARN  Level = 4
+	LEVEL_ERROR Level = 8
+	LEVEL_FATAL Level = 12
+	LEVEL_TRACE Level = 16
 )
 
 // Option slog option

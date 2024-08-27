@@ -25,7 +25,7 @@ func getMessage(template string, fmtArgs []interface{}) string {
 
 // Adapt klog level to slog level
 func tranSLevel(level Level) (lvl slog.Level) {
-	switch int(level) {
+	switch level {
 	case LEVEL_DEBUG:
 		lvl = slog.LevelDebug
 	case LEVEL_INFO:

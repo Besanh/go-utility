@@ -49,67 +49,67 @@ func (l *DefaultLogger) LogCtxf(level Level, ctx context.Context, format string,
 }
 
 func (l *DefaultLogger) Debug(args ...any) {
-	l.Log(Level(LEVEL_DEBUG), fmt.Sprint(args...))
+	l.Log(LEVEL_DEBUG, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) Info(args ...any) {
-	l.Log(Level(LEVEL_INFO), fmt.Sprint(args...))
+	l.Log(LEVEL_INFO, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) Warn(args ...any) {
-	l.Log(Level(LEVEL_WARN), fmt.Sprint(args...))
+	l.Log(LEVEL_WARN, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) Error(args ...any) {
-	l.Log(Level(LEVEL_ERROR), fmt.Sprint(args...))
+	l.Log(LEVEL_ERROR, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) Debugf(msg string, args ...any) {
-	l.Logf(Level(LEVEL_DEBUG), msg, args...)
+	l.Logf(LEVEL_DEBUG, msg, args...)
 }
 
 func (l *DefaultLogger) Infof(msg string, args ...any) {
-	l.Logf(Level(LEVEL_INFO), msg, args...)
+	l.Logf(LEVEL_INFO, msg, args...)
 }
 
 func (l *DefaultLogger) Warnf(msg string, args ...any) {
-	l.Logf(Level(LEVEL_WARN), msg, args...)
+	l.Logf(LEVEL_WARN, msg, args...)
 }
 
 func (l *DefaultLogger) Errorf(msg string, args ...any) {
-	l.Logf(Level(LEVEL_ERROR), msg, args...)
+	l.Logf(LEVEL_ERROR, msg, args...)
 }
 
 func (l *DefaultLogger) DebugContext(ctx context.Context, args ...any) {
-	l.LogCtxf(Level(LEVEL_DEBUG), ctx, fmt.Sprint(args...))
+	l.LogCtxf(LEVEL_DEBUG, ctx, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) InfoContext(ctx context.Context, args ...any) {
-	l.LogCtxf(Level(LEVEL_INFO), ctx, fmt.Sprint(args...))
+	l.LogCtxf(LEVEL_INFO, ctx, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) WarnContext(ctx context.Context, args ...any) {
-	l.LogCtxf(Level(LEVEL_WARN), ctx, fmt.Sprint(args...))
+	l.LogCtxf(LEVEL_WARN, ctx, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) ErrorContext(ctx context.Context, args ...any) {
-	l.LogCtxf(Level(LEVEL_ERROR), ctx, fmt.Sprint(args...))
+	l.LogCtxf(LEVEL_ERROR, ctx, fmt.Sprint(args...))
 }
 
 func (l *DefaultLogger) DebugfContext(ctx context.Context, msg string, args ...any) {
-	l.LogCtxf(Level(LEVEL_DEBUG), ctx, msg, args...)
+	l.LogCtxf(LEVEL_DEBUG, ctx, msg, args...)
 }
 
 func (l *DefaultLogger) InfofContext(ctx context.Context, msg string, args ...any) {
-	l.LogCtxf(Level(LEVEL_INFO), ctx, msg, args...)
+	l.LogCtxf(LEVEL_INFO, ctx, msg, args...)
 }
 
 func (l *DefaultLogger) WarnfContext(ctx context.Context, msg string, args ...any) {
-	l.LogCtxf(Level(LEVEL_WARN), ctx, msg, args...)
+	l.LogCtxf(LEVEL_WARN, ctx, msg, args...)
 }
 
 func (l *DefaultLogger) ErrorfContext(ctx context.Context, msg string, args ...any) {
-	l.LogCtxf(Level(LEVEL_ERROR), ctx, msg, args...)
+	l.LogCtxf(LEVEL_ERROR, ctx, msg, args...)
 }
 
 func (l *DefaultLogger) SetLevel(level Level) {
