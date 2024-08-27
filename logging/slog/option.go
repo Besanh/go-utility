@@ -32,6 +32,7 @@ const (
 	LEVEL_ERROR
 )
 
+// Option slog option
 type Option interface {
 	apply(cfg *config)
 }
@@ -42,6 +43,7 @@ func (fn option) apply(cfg *config) {
 	fn(cfg)
 }
 
+// default config
 func defaultConfig() *config {
 	coreConfig := defaultCoreConfig()
 	return &config{
@@ -53,6 +55,7 @@ func defaultConfig() *config {
 	}
 }
 
+// default core config
 func defaultCoreConfig() *coreConfig {
 	level := new(slog.LevelVar)
 	level.Set(slog.LevelInfo)

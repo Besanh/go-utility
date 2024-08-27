@@ -26,6 +26,7 @@ const (
 	traceFlagsKey = "trace_flags"
 )
 
+// NewTraceHandler new trace handler
 func NewTraceHandler(w io.Writer, opts *slog.HandlerOptions, traceConfig *traceConfig) *traceHandler {
 	if opts == nil {
 		opts = &slog.HandlerOptions{}
@@ -36,10 +37,12 @@ func NewTraceHandler(w io.Writer, opts *slog.HandlerOptions, traceConfig *traceC
 	}
 }
 
+// Enabled implements Handler
 func (t *traceHandler) Enabled(ctx context.Context, level slog.Level) bool {
 	return t.Handler.Enabled(ctx, level)
 }
 
+// Handle implements Handler
 func (t *traceHandler) Handle(ctx context.Context, record slog.Record) error {
 	// trace span add
 	span := trace.SpanFromContext(ctx)
