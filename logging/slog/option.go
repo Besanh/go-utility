@@ -22,8 +22,9 @@ type (
 	}
 
 	config struct {
-		coreConfig  coreConfig
-		traceConfig *traceConfig
+		coreConfig   coreConfig
+		traceConfig  *traceConfig
+		fluentConfig FluentConfig
 	}
 )
 
@@ -133,5 +134,12 @@ func WithRotateFile(f string) Option {
 func WithFormatter(formatter Formatter) Option {
 	return option(func(cfg *config) {
 		cfg.coreConfig.formatter = formatter
+	})
+}
+
+// WithFluentd fluentd config
+func WithFluentd(fluentConfig FluentConfig) Option {
+	return option(func(cfg *config) {
+		cfg.fluentConfig = fluentConfig
 	})
 }

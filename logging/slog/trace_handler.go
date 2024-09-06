@@ -27,7 +27,7 @@ const (
 )
 
 // NewTraceHandler new trace handler
-func NewTraceHandler(w io.Writer, opts *slog.HandlerOptions, traceConfig *traceConfig) *traceHandler {
+func NewTraceHandler(w io.Writer, opts *slog.HandlerOptions, traceConfig *traceConfig) slog.Handler {
 	if opts == nil {
 		opts = &slog.HandlerOptions{}
 	}
@@ -36,6 +36,8 @@ func NewTraceHandler(w io.Writer, opts *slog.HandlerOptions, traceConfig *traceC
 		traceConfig,
 	}
 }
+
+var _ slog.Handler = (*traceHandler)(nil)
 
 // Enabled implements Handler
 func (t *traceHandler) Enabled(ctx context.Context, level slog.Level) bool {

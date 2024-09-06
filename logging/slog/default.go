@@ -31,6 +31,8 @@ func NewDefaultLogger(opts ...Option) *DefaultLogger {
 	}
 }
 
+var _ ILogger = (*DefaultLogger)(nil)
+
 func (l *DefaultLogger) Log(level Level, msg string) {
 	logger := l.l.With()
 	logger.Log(context.TODO(), tranSLevel(level), msg)

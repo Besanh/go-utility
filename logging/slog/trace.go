@@ -36,6 +36,8 @@ func NewTraceLogger(opts ...Option) *TraceLogger {
 	}
 }
 
+var _ ILogger = (*TraceLogger)(nil)
+
 func (l *TraceLogger) Log(level Level, msg string) {
 	logger := l.l.With()
 	logger.Log(context.TODO(), tranSLevel(level), msg)
