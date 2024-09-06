@@ -65,6 +65,9 @@ func (h *defaultHandler) Handle(ctx context.Context, record slog.Record) error {
 		}
 	}
 
+	if len(h.config.attrs) > 0 {
+		record.AddAttrs(h.config.attrs...)
+	}
 	// developer formatters
 	if h.config.isWithFileSource {
 		_, path, numLine, _ := runtime.Caller(6)

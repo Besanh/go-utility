@@ -40,6 +40,7 @@ type (
 		// optional: customize json payload builder
 		Converter Converter
 
+		attrs           []slog.Attr
 		AttrFromContext []func(ctx context.Context) []slog.Attr
 	}
 
@@ -96,6 +97,7 @@ func defaultCoreConfig() *coreConfig {
 		AddSource:          false,
 		isWithTraceId:      false,
 		isWithFileSource:   false,
+		attrs:              []slog.Attr{},
 	}
 }
 
@@ -162,5 +164,11 @@ func WithFluentd(client *fluent.Fluent, tag string) Option {
 		cfg.coreConfig.FluentClient = client
 		cfg.coreConfig.Tag = tag
 		cfg.coreConfig.AttrFromContext = []func(ctx context.Context) []slog.Attr{}
+	})
+}
+
+func WithAttrs(attrs ...slog.Attr) Option {
+	return option(func(cfg *config) {
+		cfg.coreConfig.attrs = attrs
 	})
 }
