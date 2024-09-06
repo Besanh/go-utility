@@ -2,6 +2,7 @@ package slog
 
 import (
 	"context"
+	"log/slog"
 )
 
 type (
@@ -34,7 +35,7 @@ type (
 	}
 
 	ICustomLogger interface {
-		LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{})
+		LogWithAttrs(level Level, ctx context.Context, msg string, attrs ...slog.Attr)
 	}
 
 	IFullLogger interface {

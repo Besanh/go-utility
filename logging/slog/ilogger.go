@@ -2,6 +2,7 @@ package slog
 
 import (
 	"context"
+	"log/slog"
 )
 
 var logger IFullLogger = NewSLogger()
@@ -98,6 +99,6 @@ func DebugfContext(ctx context.Context, msg string, args ...any) {
 	logger.DebugfContext(ctx, msg, args...)
 }
 
-func LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{}) {
-	logger.LogWithArgs(level, ctx, msg, args...)
+func LogWithAttrs(level Level, ctx context.Context, msg string, attrs ...slog.Attr) {
+	logger.LogWithAttrs(level, ctx, msg, attrs...)
 }

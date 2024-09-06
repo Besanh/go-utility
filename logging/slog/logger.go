@@ -50,9 +50,9 @@ func (l *SLogger) LogCtxf(level Level, ctx context.Context, format string, kvs .
 	logger.Log(ctx, tranSLevel(level), msg)
 }
 
-func (l *SLogger) LogWithArgs(level Level, ctx context.Context, msg string, args ...interface{}) {
-	logger := l.l.With(args...)
-	logger.Log(ctx, tranSLevel(level), msg)
+func (l *SLogger) LogWithAttrs(level Level, ctx context.Context, msg string, attrs ...slog.Attr) {
+	logger := l.l.With()
+	logger.LogAttrs(ctx, tranSLevel(level), msg, attrs...)
 }
 
 func (l *SLogger) Debug(args ...any) {
