@@ -45,9 +45,3 @@ type (
 		ICustomLogger
 	}
 )
-
-type (
-	Control interface {
-		SetLevel(level Level)
-	}
-)

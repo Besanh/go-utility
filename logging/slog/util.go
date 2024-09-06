@@ -47,7 +47,7 @@ type ContextKey string
 
 const keyTraceId = ContextKey("trace_id")
 
-func WithTraceId(ctx context.Context, traceId string) context.Context {
+func SetContextTraceId(ctx context.Context, traceId string) context.Context {
 	return context.WithValue(ctx, keyTraceId, traceId)
 }
 

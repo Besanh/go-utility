@@ -6,8 +6,6 @@ require (
 	github.com/fluent/fluent-logger-golang v1.9.0
 	github.com/gookit/slog v0.5.6
 	github.com/samber/slog-common v0.17.0
-	go.opentelemetry.io/otel v1.29.0
-	go.opentelemetry.io/otel/trace v1.29.0
 )
 
 require golang.org/x/term v0.23.0 // indirect

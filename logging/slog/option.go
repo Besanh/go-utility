@@ -1,10 +1,12 @@
 package slog
 
 import (
+	"context"
 	"io"
 	"log/slog"
 	"os"
 
+	"github.com/fluent/fluent-logger-golang/fluent"
 	"github.com/gookit/slog/rotatefile"
 )
 
@@ -13,18 +15,36 @@ type (
 	Formatter string
 
 	coreConfig struct {
+		level     *slog.LevelVar
+		formatter Formatter
+
 		opt                *slog.HandlerOptions
 		writer             io.Writer
-		level              *slog.LevelVar
-		formatter          Formatter
 		withLevel          bool
 		withHandlerOptions bool
+
+		// set options
+		isWithTraceId bool
+
+		isWithFileSource bool
+
+		// optional: fetch attributes from context
+		AddSource   bool
+		ReplaceAttr func(groups []string, a slog.Attr) slog.Attr
+
+		// optional: connection to Fluentd
+		isUseFluent  bool
+		FluentClient *fluent.Fluent // fluent client if isUseFluent is true
+		Tag          string
+
+		// optional: customize json payload builder
+		Converter Converter
+
+		AttrFromContext []func(ctx context.Context) []slog.Attr
 	}
 
 	config struct {
-		coreConfig   coreConfig
-		traceConfig  *traceConfig
-		fluentConfig FluentConfig
+		coreConfig coreConfig
 	}
 )
 
@@ -56,10 +76,6 @@ func defaultConfig() *config {
 	coreConfig := defaultCoreConfig()
 	return &config{
 		coreConfig: *coreConfig,
-		traceConfig: &traceConfig{
-			recordStackTraceInSpan: true,
-			errorSpanLevel:         slog.LevelError,
-		},
 	}
 }
 
@@ -76,6 +92,10 @@ func defaultCoreConfig() *coreConfig {
 		withLevel:          false,
 		withHandlerOptions: false,
 		formatter:          FORMAT_JSON,
+		isUseFluent:        false,
+		AddSource:          false,
+		isWithTraceId:      false,
+		isWithFileSource:   false,
 	}
 }
 
@@ -102,20 +122,6 @@ func WithLevel(level Level) Option {
 	})
 }
 
-// WithTraceErrorSpanLevel trace error span level option
-func WithTraceErrorSpanLevel(level slog.Level) Option {
-	return option(func(cfg *config) {
-		cfg.traceConfig.errorSpanLevel = level
-	})
-}
-
-// WithRecordStackTraceInSpan record stack track option
-func WithRecordStackTraceInSpan(recordStackTraceInSpan bool) Option {
-	return option(func(cfg *config) {
-		cfg.traceConfig.recordStackTraceInSpan = recordStackTraceInSpan
-	})
-}
-
 // WithRotateFile rotate file option
 func WithRotateFile(f string) Option {
 	rotateWriter, err := rotatefile.NewConfig(f).Create()
@@ -137,9 +143,24 @@ func WithFormatter(formatter Formatter) Option {
 	})
 }
 
-// WithFluentd fluentd config
-func WithFluentd(fluentConfig FluentConfig) Option {
+func WithTraceId() Option {
 	return option(func(cfg *config) {
-		cfg.fluentConfig = fluentConfig
+		cfg.coreConfig.isWithTraceId = true
+	})
+}
+
+func WithFileSource() Option {
+	return option(func(cfg *config) {
+		cfg.coreConfig.isWithFileSource = true
+	})
+}
+
+// WithFluentd fluentd config
+func WithFluentd(client *fluent.Fluent, tag string) Option {
+	return option(func(cfg *config) {
+		cfg.coreConfig.isUseFluent = true
+		cfg.coreConfig.FluentClient = client
+		cfg.coreConfig.Tag = tag
+		cfg.coreConfig.AttrFromContext = []func(ctx context.Context) []slog.Attr{}
 	})
 }
