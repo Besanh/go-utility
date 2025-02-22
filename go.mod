@@ -1,4 +1,4 @@
-module github.com/tel4vn-team/go-utility
+module go-utility
 
 go 1.22.3
 
