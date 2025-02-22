@@ -1,4 +1,4 @@
-module go-utility
+module github.com/BesAnh/go-utility
 
 go 1.22.3
 
