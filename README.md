@@ -14,7 +14,7 @@
 ```go
 import (
     ...
-    log "github.com/tel4vn-team/go-utility/logging/slog"
+    log "go-utility/logging/slog"
 )
 
 func main()  {
@@ -45,7 +45,7 @@ func main()  {
 ```go
 import (
     ...
-    log "github.com/tel4vn-team/go-utility/logging/slog"
+    log "go-utility/logging/slog"
 )
 
 func main()  {
